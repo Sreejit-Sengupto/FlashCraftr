@@ -7,6 +7,7 @@ import { GiShare } from "react-icons/gi";
 import { redirect, useLoaderData, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
+import { Flashcard } from "../types/Flashcard";
 
 export async function loader() {
   if (!localStorage.getItem("username")) {
@@ -127,16 +128,17 @@ const LogoutBtn = () => {
   );
 };
 
-export const FlashCards = ({ front, back }: { front: string; back: string }) => {
+export const FlashCards: React.FC<Flashcard> = ({ front, back }) => {
   const [isFlipped, setIsFlipped] = React.useState<boolean>(false);
-  const cardRef = React.useRef(null);
+  const cardRef = React.useRef<any>(null);
 
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
   };
 
-  const handleClickOutside = (event) => {
-    if (cardRef.current && !cardRef.current.contains(event.target)) {
+  const handleClickOutside = (event: MouseEvent) => {
+    const target = event.target as Node;
+    if (cardRef.current && !cardRef.current.contains(target)) {
       setIsFlipped(false); // Flip back to front when clicking outside
     }
   };
