@@ -13,7 +13,7 @@ const Playground = () => {
   
   const [flashCard, setFlashCard] = React.useState<any>(null);
 
-  console.log(flashCard.totalCards);
+  console.log(flashCard && flashCard.totalCards);
   console.log(page);
   
   
