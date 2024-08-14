@@ -18,7 +18,7 @@ const Playground = () => {
 
   const getCards = async () => {
     const response = await axios.get(
-      `http://localhost:8080/api/v1/flashcard/get?username=${username}&page=${page}`
+      `https://flashcraftr-server.onrender.com/api/v1/flashcard/get?username=${username}&page=${page}`
     );
     if (response.data.flashCards.length === 0) {
       navigate("/");

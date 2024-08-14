@@ -14,7 +14,7 @@ export async function loader() {
   }
   try {
     const response = await axios.get(
-      `http://localhost:8080/api/v1/flashcard/get-all?username=${localStorage.getItem(
+      `https://flashcraftr-server.onrender.com/api/v1/flashcard/get-all?username=${localStorage.getItem(
         "username"
       )}`
     );
@@ -240,7 +240,7 @@ const Modal = ({
 
   const getAllCards = async () => {
     const response = await axios.get(
-      `http://localhost:8080/api/v1/flashcard/get-all?username=${localStorage.getItem(
+      `https://flashcraftr-server.onrender.com/api/v1/flashcard/get-all?username=${localStorage.getItem(
         "username"
       )}`
     );
@@ -250,7 +250,7 @@ const Modal = ({
   const createFlashCard = async () => {
     try {
       setLoading(true);
-      await axios.post("http://localhost:8080/api/v1/flashcard/create", {
+      await axios.post("https://flashcraftr-server.onrender.com/api/v1/flashcard/create", {
         question: formData.question,
         answer: formData.answer,
         username: localStorage.getItem("username"),
