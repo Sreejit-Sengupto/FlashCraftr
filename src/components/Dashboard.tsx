@@ -42,7 +42,7 @@ const Dashboard = () => {
       <TopBar setOpenModal={setOpenModal} />
 
       {flashcard.flashcards.length > 0 ? (
-        <div className="grid grid-cols-5 gap-3 mx-auto place-items-center px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 mx-auto place-items-center px-6">
           {flashCards}
         </div>
       ) : (
@@ -52,7 +52,7 @@ const Dashboard = () => {
       )}
 
       {openModal ? (
-        <div className="text-white absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+        <div className="w-[90%] lg:w-auto text-white absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-30">
           <Modal setOpenModal={setOpenModal} setFlashCards={setFlashCard} />
         </div>
       ) : null}
@@ -69,17 +69,22 @@ const TopBar = ({
 }: {
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-
   const copyText = () => {
-    navigator.clipboard.writeText(`https://flashcraftr.vercel.app/playground/${localStorage.getItem('username')}`).then(
-      () => {
-        alert('Invite link copied to clipboard!');
-      },
-      (err) => {
-        console.error('Failed to copy invite link: ', err);
-      }
-    );
-  }
+    navigator.clipboard
+      .writeText(
+        `https://flashcraftr.vercel.app/playground/${localStorage.getItem(
+          "username"
+        )}`
+      )
+      .then(
+        () => {
+          alert("Invite link copied to clipboard!");
+        },
+        (err) => {
+          console.error("Failed to copy invite link: ", err);
+        }
+      );
+  };
 
   return (
     <div className="bg-black p-6 flex justify-between items-center">
@@ -94,18 +99,21 @@ const TopBar = ({
       </p>
 
       <div className="flex justify-center items-center gap-2">
-        <button className="bg-[#E11D48] px-6 py-2 border border-[#E11D48] rounded-full text-white min-w-40 mt-1 focus:outline-none focus:ring focus:ring-[#ff7f9b] flex justify-center items-center" onClick={copyText}>
+        <button
+          className="bg-[#E11D48] px-6 py-2 border border-[#E11D48] rounded-full text-white lg:min-w-40 mt-1 focus:outline-none focus:ring focus:ring-[#ff7f9b] flex justify-center items-center"
+          onClick={copyText}
+        >
           <span className="mr-1">
-            <GiShare size={'1.5em'}/>
+            <GiShare size={"1.5em"} />
           </span>
-          <span>Invite to playground</span>
+          <span className="hidden sm:inline">Invite to playground</span>
         </button>
         <button
-          className="bg-[#E11D48] px-6 py-2 border border-[#E11D48] rounded-full text-white min-w-40 mt-1 focus:outline-none focus:ring focus:ring-[#ff7f9b] flex justify-center items-center"
+          className="bg-[#E11D48] px-6 py-2 border border-[#E11D48] rounded-full text-white lg:min-w-40 mt-1 focus:outline-none focus:ring focus:ring-[#ff7f9b] flex justify-center items-center"
           onClick={() => setOpenModal(true)}
         >
-          <IoMdAdd className="mr-1" size={'1.5em'}/>
-          Create
+          <IoMdAdd className="sm:mr-1" size={"1.5em"} />
+          <span className="hidden sm:inline">Create</span>
         </button>
       </div>
     </div>
@@ -152,7 +160,7 @@ export const FlashCards: React.FC<Flashcard> = ({ front, back }) => {
 
   return (
     <motion.div
-    ref={cardRef}
+      ref={cardRef}
       onClick={handleFlip}
       style={{
         width: "100%",
@@ -252,11 +260,14 @@ const Modal = ({
   const createFlashCard = async () => {
     try {
       setLoading(true);
-      await axios.post("https://flashcraftr-server.onrender.com/api/v1/flashcard/create", {
-        question: formData.question,
-        answer: formData.answer,
-        username: localStorage.getItem("username"),
-      });
+      await axios.post(
+        "https://flashcraftr-server.onrender.com/api/v1/flashcard/create",
+        {
+          question: formData.question,
+          answer: formData.answer,
+          username: localStorage.getItem("username"),
+        }
+      );
       // Either call getAllFlashcards or simply append it to the existing state
       await getAllCards();
 
@@ -278,7 +289,7 @@ const Modal = ({
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.5 }}
       transition={{ duration: 0.3 }}
-      className="bg-[#161616] w-[42rem] h-[40rem] p-6 flex flex-col justify-center items-center rounded-lg"
+      className="bg-[#161616] w-full lg:w-[42rem] h-[40rem] p-6 flex flex-col justify-center items-center rounded-lg"
     >
       <button className="ml-auto" onClick={() => setOpenModal(false)}>
         <IoIosCloseCircleOutline color="#E11D48" size={"1.5em"} />

@@ -37,7 +37,7 @@ const Playground = () => {
   }, [page]);
 
   return (
-    <div className="w-[30%] h-screen flex flex-col justify-around items-center mx-auto">
+    <div className="w-[95%] lg:w-[30%] h-[100dvh] flex flex-col justify-around items-center mx-auto">
       <div className="p-6 bg-[#211012] w-40 h-40 rounded-full shadow-red-ball absolute top-0 left-0 -z-20"></div>
       <h1 className="text-white text-4xl flex justify-center items-center">
         <span>
