@@ -71,7 +71,7 @@ const TopBar = ({
 }) => {
 
   const copyText = () => {
-    navigator.clipboard.writeText(`http://localhost:5173/playground/${localStorage.getItem('username')}`).then(
+    navigator.clipboard.writeText(`https://flashcraftr.vercel.app/playground/${localStorage.getItem('username')}`).then(
       () => {
         alert('Invite link copied to clipboard!');
       },
