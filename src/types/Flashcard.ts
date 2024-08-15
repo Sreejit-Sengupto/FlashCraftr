@@ -1,4 +1,9 @@
+import React from 'react';
+
 export interface Flashcard {
-    front: string,
-    back: string
+    admin: boolean;
+    id: string;
+    front: string;
+    back: string;
+    setFlashCard?: React.Dispatch<React.SetStateAction<any>>;
 }

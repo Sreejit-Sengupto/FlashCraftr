@@ -1,28 +1,37 @@
 import {
-  RouterProvider,
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-} from "react-router-dom";
-import Homepage from "./components/Homepage";
-import Dashboard, { loader as dashboardLoader } from "./components/Dashboard";
-import Playground from "./components/Playground";
-import ProtectedRoutes from "./components/ProtectedRoutes";
+    RouterProvider,
+    createBrowserRouter,
+    createRoutesFromElements,
+    Route,
+} from 'react-router-dom';
+import Homepage from './pages/Homepage';
+import Dashboard, { loader as dashboardLoader } from './pages/Dashboard';
+import Playground from './pages/Playground';
+import ProtectedRoutes from './utils/ProtectedRoutes';
+import { DataProvider } from './utils/DataProvider';
 
 const router = createBrowserRouter(
-  createRoutesFromElements(
-    <>
-      <Route path="/" element={<Homepage />} />
-      <Route element={<ProtectedRoutes />}>
-        <Route path="/dashboard" element={<Dashboard />} loader={dashboardLoader} />
-      </Route>
-      <Route path="/playground/:username" element={<Playground />} />
-    </>
-  )
+    createRoutesFromElements(
+        <>
+            <Route path="/" element={<Homepage />} />
+            <Route element={<ProtectedRoutes />}>
+                <Route
+                    path="/dashboard"
+                    element={<Dashboard />}
+                    loader={dashboardLoader}
+                />
+            </Route>
+            <Route path="/playground/:username" element={<Playground />} />
+        </>,
+    ),
 );
 
 const App = () => {
-  return <RouterProvider router={router}></RouterProvider>;
+    return (
+        <DataProvider>
+            <RouterProvider router={router} />
+        </DataProvider>
+    );
 };
 
 export default App;
