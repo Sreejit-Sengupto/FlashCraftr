@@ -75,7 +75,7 @@ const TopBar = ({
                                 opacity: [1, 0, 1],
                             }}
                             transition={{
-                                duration: 2000,
+                                duration: 2,
                                 repeat: Infinity,
                                 ease: 'easeInOut',
                             }}
