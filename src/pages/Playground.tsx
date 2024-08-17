@@ -16,7 +16,7 @@ const Playground = () => {
     const { getCard } = useData();
 
     React.useEffect(() => {
-        const socket = new WebSocket('wss://flashcraftr.vercel.app');
+        const socket = new WebSocket('wss://flashcraftr-server.onrender.com');
         socket.onopen = () => {
             socket.send(JSON.stringify({ action: 'enter' }));
             console.log('Connected to WS');

@@ -13,7 +13,7 @@ const TopBar = ({
     const [liveCount, setLiveCount] = React.useState<number>(0);
 
     React.useEffect(() => {
-        const socket = new WebSocket('wss://flashcraftr.vercel.app');
+        const socket = new WebSocket('wss://flashcraftr-server.onrender.com');
         socket.onopen = () => {
             console.log('Connected to WS');
         };
