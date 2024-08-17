@@ -15,16 +15,28 @@ const Playground = () => {
 
     const { getCard } = useData();
 
-    const getCards = async () => {
-        // const response = await axiosInstance.request({
-        //   url: `/api/v1/flashcard/get`,
-        //   method: "get",
-        //   params: {
-        //     username: username,
-        //     page: page,
-        //   },
-        // });
+    React.useEffect(() => {
+        const socket = new WebSocket('ws://localhost:8080');
+        socket.onopen = () => {
+            socket.send(JSON.stringify({ action: 'enter' }));
+            console.log('Connected to WS');
+        };
 
+        socket.onclose = () => {
+            console.log('Disconnected from WS');
+        };
+
+        window.addEventListener('beforeunload', () => {
+            socket.send(JSON.stringify({ action: 'leave' }));
+        });
+
+        return () => {
+            socket.send(JSON.stringify({ action: 'leave' }));
+            socket.close();
+        };
+    }, []);
+
+    const getCards = async () => {
         const response = await getCard(username!, page);
 
         if (response.flashCards.length === 0) {
